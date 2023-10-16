@@ -74,14 +74,31 @@
                         let resposta = $.parseJSON(data)
                         if(resposta.length>0) location.href = "/BingoGame/";
                     },
-                    error: function (jqXhr, textStatus, errorMessage) {
-                            
-                    }
                 });
             }
         })
         $('#signupbtn').click(function(){
-            alert('signupbtn')
+            let name = document.getElementsByName('name')[0].value
+            let uname = document.getElementsByName('uname')[0].value
+            let pword = document.getElementsByName('psw')[0].value
+            let repword = document.getElementsByName('psw-repeat')[0].value
+            
+            if(pword != repword){
+                alert('Pasword did not match!')
+            }
+            else if(name == '' || uname == '' || pword == ''){
+                alert('Incomplete details!')
+            }
+            else{
+                $.ajax('signupBackend.php', {
+                    type: 'POST',  // http method
+                    data: { name:name,username:username,pword:pword },  // data to submit
+                    success: function (data) {
+                        let resposta = $.parseJSON(data)
+                        alert(resposta)
+                    },
+                });
+            }
         })
     })
 

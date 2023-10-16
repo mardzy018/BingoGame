@@ -20,7 +20,8 @@
 
 <body>
     <div class="container-fluid text-center">
-        <h1>WELCOME <?$name?> TO BINGO GAME</h1>
+        <h1>WELCOME <?=$name?> TO BINGO GAME</h1>
+        <button style="float: right;" id='logout'>Logout</button>
     </div>
     <!--BINGO ROLL-->
     <div class="container p-3 my-3 StartPlay">
@@ -126,20 +127,20 @@
         }
 
         function makeNum() {
-            genNum();
+            genNum()
 
-            if (y == 1) num = b;
-            if (y == 2) num = i;
-            if (y == 3) num = n;
-            if (y == 4) num = g;
-            if (y == 5) num = o;
+            if (y == 1) num = b
+            if (y == 2) num = i
+            if (y == 3) num = n
+            if (y == 4) num = g
+            if (y == 5) num = o
             numList.push(num);
             for (c = 0; c <= count; c++) {
                 if (num != numList[c - 1]) {
-                    good = 1;
+                    good = 1
                 } else {
-                    good = 0;
-                    makeNum();
+                    good = 0
+                    makeNum()
                 }
             }
         }
@@ -153,8 +154,8 @@
                     $('#BingoResultRow'+row).append("<td id='BingoResultCell"+cell+"'></td>")
                 }
             }
-            numList = [];
-            count = 1;
+            numList = []
+            count = 1
             let start = 0
             for (x = 1; x <= 5; x++) {
                 $('#BingoCard').append("<tr id='tr"+x+"'>"+"</tr>")
@@ -171,7 +172,7 @@
             if(start==5){
                 $('#GenerateCard').hide()
             }
-        });
+        })
 
         var table = document.getElementById("BingoCardTable");
 
@@ -187,7 +188,7 @@
         var unique = win.filter((value, index, array) => array.indexOf(value) === index);
         if(unique.length == 5){
             alert('YOU WIN!')
-            
+
             $('.StartPlay').hide()
             $('#GenerateCard').show()
             $('#BingoResult').text('')
@@ -195,7 +196,16 @@
             CurrentResult = []
             Results = []
         }
-        });
+        })
+
+        $('#logout').click(function(){
+            $.ajax('logout.php', {
+                type: 'POST',
+                success: function (data) {
+                    location.href = "/BingoGame/login.php";
+                },
+            });
+        })
     })
 </script>
 
